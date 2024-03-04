@@ -82,9 +82,17 @@ function App() {
       />
       <button
         onClick={() => {
+          if (입력값.trim() === "") {
+            // 입력값이 없으면 함수를 실행하지 않음
+            return;
+          }
           let copy = [...글제목];
           copy.unshift(입력값);
           글제목변경(copy);
+
+          let copy2 = [...따봉];
+          copy2.unshift(0);
+          따봉변경(copy2);
         }}
       >
         글발행
