@@ -13,13 +13,6 @@ function App() {
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
   let [입력값, 입력값변경] = useState(""); //input태그의 값을 저장할 state
-  const addPost = () => {
-    const newContent = [...글제목, 입력값];
-    글제목변경(newContent);
-    const good = [...따봉, 0];
-    따봉변경(good);
-    입력값변경("");
-  };
 
   return (
     <div className="App">
@@ -70,6 +63,15 @@ function App() {
               {따봉[i]}
             </h4>
             <p>2월 17일 발행</p>
+            <button
+              onClick={() => {
+                let copy = [...글제목];
+                copy.splice(i, 1);
+                글제목변경(copy);
+              }}
+            >
+              삭제
+            </button>
           </div>
         );
       })}
@@ -78,7 +80,15 @@ function App() {
           입력값변경(e.target.value);
         }}
       />
-      <button onClick={addPost}>새 글 추가</button>
+      <button
+        onClick={() => {
+          let copy = [...글제목];
+          copy.unshift(입력값);
+          글제목변경(copy);
+        }}
+      >
+        글발행
+      </button>
 
       {modal == true ? (
         <Modal 글제목={글제목} 글제목변경={글제목변경} title={title} />
