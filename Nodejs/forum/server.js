@@ -4,7 +4,7 @@ app.use(express.static(__dirname + "/public"));
 const { MongoClient } = require("mongodb");
 
 let db;
-const url = "url 주소 ";
+const url = "";
 new MongoClient(url)
   .connect()
   .then((client) => {
@@ -33,4 +33,10 @@ app.get("/shop", (요청, 응답) => {
 
 app.get("/about", (요청, 응답) => {
   응답.sendFile(__dirname + "/about.html");
+});
+
+app.get("/list", async (요청, 응답) => {
+  let result = await db.collection("post").find().toArray();
+  console.log(result);
+  응답.send("DB에 저장된 데이터 모두 출력하기");
 });
