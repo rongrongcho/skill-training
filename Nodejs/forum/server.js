@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 app.use(express.static(__dirname + "/public"));
+app.set("veiw engine", "ejs");
 const { MongoClient } = require("mongodb");
 
 let db;
@@ -37,6 +38,6 @@ app.get("/about", (요청, 응답) => {
 
 app.get("/list", async (요청, 응답) => {
   let result = await db.collection("post").find().toArray();
-  console.log(result);
-  응답.send("DB에 저장된 데이터 모두 출력하기");
+  //   console.log(result);
+  응답.render("list.ejs", { 글목록: result });
 });
