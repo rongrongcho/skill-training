@@ -1,6 +1,19 @@
 const express = require("express");
 const app = express();
 app.use(express.static(__dirname + "/public"));
+const { MongoClient } = require("mongodb");
+
+let db;
+const url = "url 주소 ";
+new MongoClient(url)
+  .connect()
+  .then((client) => {
+    console.log("DB연결성공");
+    db = client.db("forum");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.listen(8080, () => {
   console.log("http://localhost:8080 에서 서버 실행중");
