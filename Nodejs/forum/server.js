@@ -5,7 +5,8 @@ app.set("veiw engine", "ejs");
 const { MongoClient } = require("mongodb");
 
 let db;
-const url = "";
+const url =
+  "mongodb+srv://admin:qwer1234@cluster0.ytowxeo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 new MongoClient(url)
   .connect()
   .then((client) => {
