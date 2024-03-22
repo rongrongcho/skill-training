@@ -39,6 +39,8 @@ app.get("/about", (요청, 응답) => {
 
 app.get("/list", async (요청, 응답) => {
   let result = await db.collection("post").find().toArray();
-  //   console.log(result);
   응답.render("list.ejs", { 글목록: result });
+});
+app.get("/write", (요청, 응답) => {
+  응답.render("write.ejs");
 });
