@@ -48,8 +48,14 @@ app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
 });
 app.post("/add", async (요청, 응답) => {
-  await db
-    .collection("post")
-    .insertOne({ title: 요청.body.title, content: 요청.body.content });
-  응답.redirect("/list");
+  console.log(요청.body);
+
+  if (요청.body.title == "" || 요청.body.content == "") {
+    응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
+  } else {
+    await db
+      .collection("post")
+      .insertOne({ title: 요청.body.title, content: 요청.body.content });
+    응답.redirect("/list");
+  }
 });
