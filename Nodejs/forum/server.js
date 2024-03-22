@@ -47,6 +47,9 @@ app.get("/list", async (요청, 응답) => {
 app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
 });
-app.post("/add", (요청, 응답) => {
-  console.log(요청.body); //유저가 입력한 데이터를 콘솔로 확인
+app.post("/add", async (요청, 응답) => {
+  await db
+    .collection("post")
+    .insertOne({ title: 요청.body.title, content: 요청.body.content });
+  응답.redirect("/list");
 });
