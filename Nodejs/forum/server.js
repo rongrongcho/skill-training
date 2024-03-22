@@ -50,12 +50,17 @@ app.get("/write", (요청, 응답) => {
 app.post("/add", async (요청, 응답) => {
   console.log(요청.body);
 
-  if (요청.body.title == "" || 요청.body.content == "") {
-    응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
-  } else {
-    await db
-      .collection("post")
-      .insertOne({ title: 요청.body.title, content: 요청.body.content });
-    응답.redirect("/list");
+  try {
+    if (요청.body.title == "" || 요청.body.content == "") {
+      응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
+    } else {
+      await db
+        .collection("post")
+        .insertOne({ title: 요청.body.title, content: 요청.body.content });
+      응답.redirect("/list");
+    }
+  } catch (e) {
+    console.log(e);
+    응답.status(500).send("서버 에러 발생");
   }
 });
