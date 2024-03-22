@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
+const { MongoClient } = require("mongodb");
 app.use(express.static(__dirname + "/public"));
 app.set("veiw engine", "ejs");
-const { MongoClient } = require("mongodb");
+//요청.body 쓰려면 필요한 코드 2줄
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let db;
 const url =
@@ -43,4 +46,7 @@ app.get("/list", async (요청, 응답) => {
 });
 app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
+});
+app.post("/add", (요청, 응답) => {
+  console.log(요청.body); //유저가 입력한 데이터를 콘솔로 확인
 });
