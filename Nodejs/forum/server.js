@@ -66,9 +66,14 @@ app.post("/add", async (요청, 응답) => {
 });
 
 app.get("/detail/:id", async (요청, 응답) => {
-  let result = await db
-    .collection("post")
-    .findOne({ _id: new ObjectId(요청.params.id) });
-  console.log(요청.params);
-  응답.render("detail.ejs", { result: result });
+  try {
+    let result = await db
+      .collection("post")
+      .findOne({ _id: new ObjectId(요청.params.id) });
+    console.log(요청.params);
+    응답.render("detail.ejs", { result: result });
+  } catch (e) {
+    console.log(e);
+    응답.send("잘못된 url, 비정상적인 접근입니다. ");
+  }
 });
