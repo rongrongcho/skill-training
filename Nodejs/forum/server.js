@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 app.use(express.static(__dirname + "/public"));
 app.set("veiw engine", "ejs");
 //요청.body 쓰려면 필요한 코드 2줄
@@ -63,4 +63,12 @@ app.post("/add", async (요청, 응답) => {
     console.log(e);
     응답.status(500).send("서버 에러 발생");
   }
+});
+
+app.get("/detail/:aaaa", async (요청, 응답) => {
+  // let result = await db
+  //   .collection("post")
+  //   .findOne({ _id: new ObjectId("65f952ebd6e20cd4caea32cd") });
+  console.log(요청.params);
+  응답.render("detail.ejs");
 });
