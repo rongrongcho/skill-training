@@ -71,9 +71,12 @@ app.get("/detail/:id", async (요청, 응답) => {
       .collection("post")
       .findOne({ _id: new ObjectId(요청.params.id) });
     console.log(요청.params);
+    if (result == null) {
+      응답.status(404).send("잘못된 url, 비정상적인 접근입니다. ");
+    }
     응답.render("detail.ejs", { result: result });
   } catch (e) {
     console.log(e);
-    응답.status(400).send("잘못된 url, 비정상적인 접근입니다. ");
+    응답.status(404).send("잘못된 url, 비정상적인 접근입니다. ");
   }
 });
