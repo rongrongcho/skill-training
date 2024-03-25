@@ -74,6 +74,6 @@ app.get("/detail/:id", async (요청, 응답) => {
     응답.render("detail.ejs", { result: result });
   } catch (e) {
     console.log(e);
-    응답.send("잘못된 url, 비정상적인 접근입니다. ");
+    응답.status(400).send("잘못된 url, 비정상적인 접근입니다. ");
   }
 });
