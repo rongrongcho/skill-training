@@ -65,10 +65,10 @@ app.post("/add", async (요청, 응답) => {
   }
 });
 
-app.get("/detail/:aaaa", async (요청, 응답) => {
-  // let result = await db
-  //   .collection("post")
-  //   .findOne({ _id: new ObjectId("65f952ebd6e20cd4caea32cd") });
+app.get("/detail/:id", async (요청, 응답) => {
+  let result = await db
+    .collection("post")
+    .findOne({ _id: new ObjectId(요청.params.id) });
   console.log(요청.params);
-  응답.render("detail.ejs");
+  응답.render("detail.ejs", { result: result });
 });
