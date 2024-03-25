@@ -82,19 +82,48 @@ app.get("/detail/:id", async (요청, 응답) => {
 });
 
 app.get("/edit/:id", async (요청, 응답) => {
-  let result = await db
-    .collection("post")
-    .findOne({ _id: new ObjectId(요청.params.id) });
-  console.log(result);
-  응답.render("edit.ejs", { result: result });
+  try {
+    let result = await db
+      .collection("post")
+      .findOne({ _id: new ObjectId(요청.params.id) });
+
+    if (!result) {
+      // 요청된 데이터가 존재하지 않는 경우
+      return 응답.status(404).send("게시물을 찾을 수 없습니다.");
+    }
+
+    console.log(result);
+    응답.render("edit.ejs", { result: result });
+  } catch (error) {
+    // 데이터베이스 쿼리나 연산에서 오류가 발생한 경우
+    console.error(
+      "데이터베이스에서 게시물을 검색하는 중 오류가 발생했습니다:",
+      error
+    );
+    응답.status(500).send("서버에서 오류가 발생했습니다.");
+  }
 });
 
 app.post("/edit", async (요청, 응답) => {
-  await db.collection("post").updateOne(
-    {
-      _id: new ObjectId(요청.body.id),
-    },
-    { $set: { title: 요청.body.title, content: 요청.body.content } }
-  );
-  응답.redirect("/list");
+  try {
+    const { id, title, content } = 요청.body;
+
+    if (!title || !content) {
+      // 제목 혹은 내용이 누락된 경우
+      return 응답.status(400).send("제목 및 내용을 채워주세요 ");
+    }
+
+    await db
+      .collection("post")
+      .updateOne({ _id: new ObjectId(id) }, { $set: { title, content } });
+
+    응답.redirect("/list");
+  } catch (error) {
+    // 데이터베이스  오류가 발생한 경우
+    console.error(
+      "데이터베이스에서 게시물을 업데이트하는 중 오류가 발생했습니다:",
+      error
+    );
+    응답.status(500).send("서버에서 오류가 발생했습니다.");
+  }
 });
