@@ -14,7 +14,7 @@
         <h4>
           <a href="/detail/<%= 글목록[i]._id %>"> <%= 글목록[i].title %> </a>
         </h4>
-        <a href="/edit/<%= 글목록[i]._id %>">✏️</a>
+        <a href="/edit/<%= 글목록[i]._id %>">✏️</a><br />
         <span class="delete">🗑️</span>
 
         <p><%= 글목록[i].content %></p>
@@ -25,7 +25,9 @@
       document
         .querySelectorAll(".delete")[0]
         .addEventListener("click", function () {
-          fetch("/abc?age=20");
+          fetch("/delete?docid=<%=글목록[0]._id%>", {
+            method: "DELETE",
+          });
         });
     </script>
   </body>

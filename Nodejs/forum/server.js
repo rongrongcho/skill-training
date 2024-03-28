@@ -130,6 +130,9 @@ app.put("/edit", async (요청, 응답) => {
   }
 });
 
-app.post("/abc", async (요청, 응답) => {
-  console.log(요청.query);
+app.delete("/delete", async (요청, 응답) => {
+  await db
+    .collection("post")
+    .deleteOne({ _id: new ObjectId(요청.query.docid) });
+  응답.send("삭제완료");
 });
