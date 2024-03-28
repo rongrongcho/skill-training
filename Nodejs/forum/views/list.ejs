@@ -15,7 +15,7 @@
           <a href="/detail/<%= 글목록[i]._id %>"> <%= 글목록[i].title %> </a>
         </h4>
         <a href="/edit/<%= 글목록[i]._id %>">✏️</a><br />
-        <span class="delete">🗑️</span>
+        <span class="delete" data-id="<%= 글목록[i]._id %>">🗑️</span>
 
         <p><%= 글목록[i].content %></p>
       </div>
@@ -24,8 +24,10 @@
     <script>
       document
         .querySelectorAll(".delete")[0]
-        .addEventListener("click", function () {
-          fetch("/delete?docid=<%=글목록[0]._id%>", {
+        .addEventListener("click", function (e) {
+          //지금 클린한 요소에 숨겨져있던 데이터를 가져온다
+          e.target.dataset.id;
+          fetch("/delete?docid=" + e.target.dataset.id, {
             method: "DELETE",
           });
         });
