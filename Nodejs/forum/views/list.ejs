@@ -25,13 +25,7 @@
       document
         .querySelectorAll(".delete")[0]
         .addEventListener("click", function () {
-          fetch("/abc", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ a: 1 }),
-          });
+          fetch("/abc?age=20");
         });
     </script>
   </body>

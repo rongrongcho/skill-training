@@ -131,6 +131,5 @@ app.put("/edit", async (요청, 응답) => {
 });
 
 app.post("/abc", async (요청, 응답) => {
-  console.log("안녕");
-  console.log(요청.body);
+  console.log(요청.query);
 });
