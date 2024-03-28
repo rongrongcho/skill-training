@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const { MongoClient, ObjectId } = require("mongodb");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.set("veiw engine", "ejs");
 //요청.body 쓰려면 필요한 코드 2줄
@@ -104,7 +106,7 @@ app.get("/edit/:id", async (요청, 응답) => {
   }
 });
 
-app.post("/edit", async (요청, 응답) => {
+app.put("/edit", async (요청, 응답) => {
   try {
     const { id, title, content } = 요청.body;
 
@@ -126,4 +128,9 @@ app.post("/edit", async (요청, 응답) => {
     );
     응답.status(500).send("서버에서 오류가 발생했습니다.");
   }
+});
+
+app.post("/abc", async (요청, 응답) => {
+  console.log("안녕");
+  console.log(요청.body);
 });

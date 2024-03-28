@@ -15,10 +15,24 @@
           <a href="/detail/<%= 글목록[i]._id %>"> <%= 글목록[i].title %> </a>
         </h4>
         <a href="/edit/<%= 글목록[i]._id %>">✏️</a>
+        <span class="delete">🗑️</span>
 
         <p><%= 글목록[i].content %></p>
       </div>
       <% } %>
     </div>
+    <script>
+      document
+        .querySelectorAll(".delete")[0]
+        .addEventListener("click", function () {
+          fetch("/abc", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ a: 1 }),
+          });
+        });
+    </script>
   </body>
 </html>
