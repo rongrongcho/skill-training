@@ -29,7 +29,11 @@
           e.target.dataset.id;
           fetch("/delete?docid=" + e.target.dataset.id, {
             method: "DELETE",
-          });
+          })
+            .then((r) => r.text())
+            .then((r) => {
+              console.log(r);
+            });
         });
     </script>
   </body>
