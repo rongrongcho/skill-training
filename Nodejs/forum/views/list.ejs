@@ -22,18 +22,32 @@
       <% } %>
     </div>
     <script>
-      document
-        .querySelectorAll(".delete")[0]
-        .addEventListener("click", function (e) {
-          //지금 클린한 요소에 숨겨져있던 데이터를 가져온다
-          e.target.dataset.id;
-          fetch("/delete?docid=" + e.target.dataset.id, {
-            method: "DELETE",
-          })
-            .then((r) => r.text())
-            .then((r) => {
-              console.log(r);
+      fetch("/URL")
+        .then((r) => {
+          if (r.status == 200) {
+            return r.json();
+          } else {
+            //서버가 에러코드전송시 실행할코드
+          }
+        })
+        .then((result) => {
+          document
+            .querySelectorAll(".delete")[0]
+            .addEventListener("click", function (e) {
+              //지금 클린한 요소에 숨겨져있던 데이터를 가져온다
+              e.target.dataset.id;
+              fetch("/delete?docid=" + e.target.dataset.id, {
+                method: "DELETE",
+              })
+                .then((r) => r.text())
+                .then((r) => {
+                  console.log(r);
+                });
             });
+        })
+        .catch((error) => {
+          //인터넷문제 등으로 실패시 실행할코드
+          console.log(error);
         });
     </script>
   </body>
