@@ -136,3 +136,22 @@ app.delete("/delete", async (요청, 응답) => {
     .deleteOne({ _id: new ObjectId(요청.query.docid) });
   응답.send("삭제완료");
 });
+
+//pagination
+app.get("/list/1", async (요청, 응답) => {
+  //1번~5번글 찾아서 result 변수에 저장
+  let result = await db.collection("post").find().limit(5).toArray();
+  응답.render("list.ejs", { 글목록: result });
+});
+
+app.get("/list/2", async (요청, 응답) => {
+  //6번~10번글 찾아서 result 변수에 저장
+  let result = await db.collection("post").find().skip(5).limit(5).toArray();
+  응답.render("list.ejs", { 글목록: result });
+});
+
+app.get("/list/3", async (요청, 응답) => {
+  //11번~15번글 찾아서 result 변수에 저장
+  let result = await db.collection("post").find().skip(10).limit(5).toArray();
+  응답.render("list.ejs", { 글목록: result });
+});
