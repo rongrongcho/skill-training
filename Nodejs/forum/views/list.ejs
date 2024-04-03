@@ -21,6 +21,8 @@
       </div>
       <% } %>
     </div>
+
+    <a href="/list/next/<%= 글목록[글목록.length-1]._id%>">next</a>
     <script>
       const deleteButtons = document.querySelectorAll(".delete");
       deleteButtons.forEach(function (button) {
