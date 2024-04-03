@@ -140,7 +140,7 @@ app.delete("/delete", async (요청, 응답) => {
 //paginatio url parameter
 
 app.get("/list/:id", async (요청, 응답) => {
-  //11번~15번글 찾아서 result 변수에 저장
+  // 각 페이지 버튼에 맞는 게시글 다섯개씩 쪼개서 가져오기
   let result = await db
     .collection("post")
     .find()
@@ -151,7 +151,7 @@ app.get("/list/:id", async (요청, 응답) => {
 });
 
 app.get("/list/next/:id", async (요청, 응답) => {
-  //11번~15번글 찾아서 result 변수에 저장
+  //현재 보고있는 페이지의 다음 페이지 불러오기
   let result = await db
     .collection("post")
     .find({ _id: { $gt: new ObjectId(요청.params.id) } })
