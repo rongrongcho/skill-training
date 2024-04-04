@@ -178,3 +178,7 @@ app.get("/list/next/:id", async (요청, 응답) => {
     .toArray();
   응답.render("list.ejs", { 글목록: result });
 });
+
+app.get("/login", async (요청, 응답) => {
+  응답.render("login.ejs");
+});
