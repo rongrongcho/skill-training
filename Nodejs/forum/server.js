@@ -198,3 +198,16 @@ passport.use(
 app.get("/login", async (요청, 응답) => {
   응답.render("login.ejs");
 });
+
+app.post("/login", async (요청, 응답, next) => {
+  //DB와의 비교작업이 끝나면 ()=>{} 함수 안에 있는 코드를 실행시켜줌
+  passport.authenticate("local", (error, user, info) => {
+    if (error) return 응답.status(500).json(error);
+    if (!user) return 응답.status(401).json(info.message);
+    //세션 생성
+    요청.logIn(user, (err) => {
+      if (err) return next(err);
+      응답.redirect("/"); // 로그인 완료시 실행할 코드
+    });
+  })(요청, 응답, next);
+});
