@@ -179,6 +179,22 @@ app.get("/list/next/:id", async (요청, 응답) => {
   응답.render("list.ejs", { 글목록: result });
 });
 
+// 로그인 기능 구현 (passport 라이브러리 사용)
+passport.use(
+  new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
+    let result = await db
+      .collection("user")
+      .findOne({ username: 입력한아이디 });
+    if (!result) {
+      return cb(null, false, { message: "아이디 DB에 없음" });
+    }
+    if (result.password == 입력한비번) {
+      return cb(null, result);
+    } else {
+      return cb(null, false, { message: "비번불일치" });
+    }
+  })
+);
 app.get("/login", async (요청, 응답) => {
   응답.render("login.ejs");
 });
