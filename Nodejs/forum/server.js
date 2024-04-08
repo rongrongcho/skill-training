@@ -21,6 +21,7 @@ app.use(
     secret: "암호화에 쓸 비번",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 60 * 60 * 1000 },
   })
 );
 
