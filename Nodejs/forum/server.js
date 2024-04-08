@@ -195,6 +195,14 @@ passport.use(
     }
   })
 );
+
+//로그인시 세션 생성하기
+passport.serializeUser((user, done) => {
+  process.nextTick(() => {
+    done(null, { id: user._id, username: user.username });
+  });
+});
+
 app.get("/login", async (요청, 응답) => {
   응답.render("login.ejs");
 });
