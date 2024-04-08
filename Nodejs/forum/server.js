@@ -21,7 +21,7 @@ app.use(
     secret: "암호화에 쓸 비번",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60 * 60 * 1000 },
+    cookie: { maxAge: 60 * 60 * 1000 }, //세션의 유효시간 설정하기 (밀리세컨드 단위로 입력)
   })
 );
 
