@@ -4,7 +4,7 @@ const { MongoClient, ObjectId } = require("mongodb");
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
-app.set("veiw engine", "ejs");
+app.set("view engine", "ejs");
 //요청.body 쓰려면 필요한 코드 2줄
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -203,8 +203,19 @@ passport.serializeUser((user, done) => {
     done(null, { id: user._id, username: user.username });
   });
 });
+//쿠키 분석 역할
+passport.deserializeUser(async (user, done) => {
+  let result = await db
+    .collection("user")
+    .findOne({ _id: new ObjectId(user.id) });
+  delete result.password;
+  process.nextTick(() => {
+    return done(null, result); //요청.user에 들어감
+  });
+});
 
 app.get("/login", async (요청, 응답) => {
+  console.log(요청.user);
   응답.render("login.ejs");
 });
 
