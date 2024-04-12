@@ -239,8 +239,9 @@ app.get("/register", (요청, 응답) => {
 });
 
 app.post("/register", async (요청, 응답) => {
+  let 해시 = await bcrypt.hash(요청.body.password, 10);
   await db
     .collection("user")
-    .insertOne({ username: 요청.body.username, password: 요청.body.password });
+    .insertOne({ username: 요청.body.username, password: 해시 });
   응답.redirect("/");
 });
