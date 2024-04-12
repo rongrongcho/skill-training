@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const { MongoClient, ObjectId } = require("mongodb");
 const methodOverride = require("method-override");
+const bcrypt = require("bcrypt");
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
