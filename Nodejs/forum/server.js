@@ -230,3 +230,9 @@ app.post("/login", async (요청, 응답, next) => {
     });
   })(요청, 응답, next);
 });
+
+//==회원 가입
+
+app.get("/register", (요청, 응답) => {
+  응답.render("register.ejs");
+});
