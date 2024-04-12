@@ -189,8 +189,9 @@ passport.use(
       .findOne({ username: 입력한아이디 });
     if (!result) {
       return cb(null, false, { message: "아이디 DB에 없음" });
-    }
-    if (result.password == 입력한비번) {
+    } // user가 입력한 비밀번호와 DB에 저장된 비밀번호 비교 -> 해싱처리
+
+    if (await bcrypt.compare(입력한비번, result.password)) {
       return cb(null, result);
     } else {
       return cb(null, false, { message: "비번불일치" });
