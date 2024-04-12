@@ -24,6 +24,11 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 }, //세션의 유효시간 설정하기 (밀리세컨드 단위로 입력)
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://admin:qwer1234@cluster0.ytowxeo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", //DB 접속용 Url
+      dbName: "forum", // db 이름
+    }),
   })
 );
 
