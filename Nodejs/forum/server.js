@@ -4,6 +4,8 @@ const { MongoClient, ObjectId } = require("mongodb");
 const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
 const MongoStore = require("connect-mongo");
+// 환경 변수를 별도의 파일로 분리하기
+require("dotenv").config;
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
