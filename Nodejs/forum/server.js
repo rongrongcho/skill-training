@@ -5,7 +5,7 @@ const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
 const MongoStore = require("connect-mongo");
 // 환경 변수를 별도의 파일로 분리하기
-require("dotenv").config;
+require("dotenv").config();
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -27,8 +27,7 @@ app.use(
     saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 }, //세션의 유효시간 설정하기 (밀리세컨드 단위로 입력)
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://admin:qwer1234@cluster0.ytowxeo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", //DB 접속용 Url
+      mongoUrl: process.env.DB_URL, //DB 접속용 Url
       dbName: "forum", // db 이름
     }),
   })
@@ -39,8 +38,7 @@ app.use(passport.session());
 //==========================
 
 let db;
-const url =
-  "mongodb+srv://admin:qwer1234@cluster0.ytowxeo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url = process.env.DB_URL;
 new MongoClient(url)
   .connect()
   .then((client) => {
@@ -51,7 +49,7 @@ new MongoClient(url)
     console.log(err);
   });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
   console.log("http://localhost:8080 에서 서버 실행중");
 });
 
