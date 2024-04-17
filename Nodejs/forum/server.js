@@ -106,21 +106,27 @@ app.get("/list", async (요청, 응답) => {
 app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
 });
-app.post("/add", upload.array("img1", 2), async (요청, 응답) => {
-  console.log(요청.files);
-  // try {
-  //   if (요청.body.title == "" || 요청.body.content == "") {
-  //     응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
-  //   } else {
-  //     await db
-  //       .collection("post")
-  //       .insertOne({ title: 요청.body.title, content: 요청.body.content });
-  //     응답.redirect("/list");
-  //   }
-  // } catch (e) {
-  //   console.log(e);
-  //   응답.status(500).send("서버 에러 발생");
-  // }
+app.post("/add", upload.single("img1"), async (요청, 응답) => {
+  try {
+    if (!요청.file) {
+      return 응답.send("이미지를 업로드해주세요!");
+    }
+
+    if (요청.body.title.trim() === "" || 요청.body.content.trim() === "") {
+      return 응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
+    }
+
+    await db.collection("post").insertOne({
+      title: 요청.body.title,
+      content: 요청.body.content,
+      img: 요청.file.location,
+    });
+
+    응답.redirect("/list");
+  } catch (에러) {
+    console.error(에러);
+    응답.status(500).send("서버 에러 발생");
+  }
 });
 
 app.get("/detail/:id", async (요청, 응답) => {
