@@ -43,8 +43,8 @@ const multerS3 = require("multer-s3");
 const s3 = new S3Client({
   region: "ap-northeast-2",
   credentials: {
-    accessKeyId: "IAM에서 발급받은 액세스키",
-    secretAccessKey: "IAM에서 발급받은 시크릿키",
+    accessKeyId: "process.env.S3_KEY",
+    secretAccessKey: "process.env.S3_SECRET",
   },
 });
 
