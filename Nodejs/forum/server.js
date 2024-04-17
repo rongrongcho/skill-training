@@ -106,9 +106,8 @@ app.get("/list", async (요청, 응답) => {
 app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
 });
-app.post("/add", async (요청, 응답) => {
-  console.log(요청.body);
-
+app.post("/add", upload.single("img1"), async (요청, 응답) => {
+  console.log(요청.file);
   try {
     if (요청.body.title == "" || 요청.body.content == "") {
       응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
