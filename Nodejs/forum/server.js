@@ -60,10 +60,9 @@ const upload = multer({
 
 //==========================
 
+let connectDB = require("./database.js");
 let db;
-const url = process.env.DB_URL;
-new MongoClient(url)
-  .connect()
+connectDB
   .then((client) => {
     console.log("DB연결성공");
     db = client.db("forum");
