@@ -287,3 +287,13 @@ app.post("/register", async (요청, 응답) => {
     .insertOne({ username: 요청.body.username, password: 해시 });
   응답.redirect("/");
 });
+
+//====Api 분리 작업
+
+app.get("shop/shirts", (요청, 응답) => {
+  응답.send("셔츠 판매 사이트");
+});
+
+app.get("shop/pants", (요청, 응답) => {
+  응답.send("바지 판매 사이트");
+});
