@@ -13,9 +13,6 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//require
-
-require("./routes/shop.js");
 //===passport 라이브러리 셋팅 ===
 
 const session = require("express-session");
@@ -290,3 +287,8 @@ app.post("/register", async (요청, 응답) => {
     .insertOne({ username: 요청.body.username, password: 해시 });
   응답.redirect("/");
 });
+
+//require
+require("./routes/shop.js");
+
+app.use("/", require("./routes/shop.js"));
