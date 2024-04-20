@@ -13,6 +13,9 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//require
+
+require("./routes/shop.js");
 //===passport 라이브러리 셋팅 ===
 
 const session = require("express-session");
