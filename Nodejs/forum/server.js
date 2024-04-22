@@ -291,3 +291,9 @@ app.post("/register", async (요청, 응답) => {
 require("./routes/shop.js");
 
 app.use("/", require("./routes/shop.js"));
+
+//검색 기능 만들기
+
+app.get("/search", async (요청, 응답) => {
+  console.log(요청.query.val);
+});
