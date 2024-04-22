@@ -7,8 +7,9 @@
     <link href="/main.css" rel="stylesheet" />
   </head>
   <body class="grey-bg">
-    <% include('nav.ejs') %>
+    <%- include('nav.ejs') %>
     <input class="search" />
+    <button class="search-send">검색</button>
     <div class="white-bg">
       <% for(let i=0; i<글목록.length; i++){ %>
       <div class="list-box">
