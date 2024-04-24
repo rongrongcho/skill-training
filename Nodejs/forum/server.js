@@ -299,7 +299,7 @@ app.get("/search", async (요청, 응답) => {
   let result = await db
     .collection("post")
     .find({ $text: { $search: 요청.query.val } })
-    .explain("executionStates");
+    .explain("executionStats");
   console.log(result);
   // .toArray();
   응답.render("search.ejs", { 글목록: result });
