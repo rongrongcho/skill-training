@@ -297,8 +297,8 @@ app.get("/search", async (요청, 응답) => {
   let 검색조건 = [
     {
       $search: {
-        index: "사용할 인덱스 이름",
-        text: { query: "검색어", path: "검색할 필드이름" },
+        index: "tilte",
+        text: { query: 요청.query.val, path: "title" },
       },
     },
   ];
