@@ -302,6 +302,7 @@ app.get("/search", async (요청, 응답) => {
       },
     },
     { $sort: { _id: 1 } }, // 검색 결과 정렬 조건 추가
+    { $limit: 10 }, // 결과수 제한
   ];
   let result = await db.collection("post").aggregate(검색조건).toArray();
   응답.render("search.ejs", { 글목록: result });
