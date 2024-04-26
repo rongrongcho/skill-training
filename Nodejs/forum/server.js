@@ -292,13 +292,9 @@ require("./routes/shop.js");
 
 app.use("/", require("./routes/shop.js"));
 
-//검색 기능 만들기
-
+//검색 기능 만들기 (search index 사용하기)
 app.get("/search", async (요청, 응답) => {
   console.log(요청.query.val);
-  let result = await db
-    .collection("post")
-    .find({ $text: { $search: 요청.query.val } })
-    .toArray();
+  let result = await db.collection("post").aggregate().toArray();
   응답.render("search.ejs", { 글목록: result });
 });
