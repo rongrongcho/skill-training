@@ -107,10 +107,6 @@ app.get("/write", (요청, 응답) => {
 });
 app.post("/add", upload.single("img1"), async (요청, 응답) => {
   try {
-    if (!요청.file) {
-      return 응답.send("이미지를 업로드해주세요!");
-    }
-
     if (요청.body.title.trim() === "" || 요청.body.content.trim() === "") {
       return 응답.send("공백 저장 불가!! 제목 혹은 내용을 입력해주세요!");
     }
@@ -118,7 +114,9 @@ app.post("/add", upload.single("img1"), async (요청, 응답) => {
     await db.collection("post").insertOne({
       title: 요청.body.title,
       content: 요청.body.content,
-      img: 요청.file.location,
+      img: 요청.file ? 요청.file.location : "",
+      user: 요청.user._id,
+      username: 요청.user.username,
     });
 
     응답.redirect("/list");
@@ -194,7 +192,10 @@ app.put("/edit", async (요청, 응답) => {
 app.delete("/delete", async (요청, 응답) => {
   await db
     .collection("post")
-    .deleteOne({ _id: new ObjectId(요청.query.docid) });
+    .deleteOne({
+      _id: new ObjectId(요청.query.docid),
+      user: new ObjectId(요청.query._id),
+    });
   응답.send("삭제완료");
 });
 
