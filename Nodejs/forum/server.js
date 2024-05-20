@@ -132,10 +132,17 @@ app.get("/detail/:id", async (요청, 응답) => {
       .collection("post")
       .findOne({ _id: new ObjectId(요청.params.id) });
     console.log(요청.params);
+    //나중에 인덱스 추가해주자
+    let result2 = await db
+      .collection("comment")
+      .find({
+        parentId: new ObjectId(요청.params.id),
+      })
+      .toArray();
     if (result == null) {
       응답.status(404).send("잘못된 url, 비정상적인 접근입니다. ");
     }
-    응답.render("detail.ejs", { result: result });
+    응답.render("detail.ejs", { result: result, result2: result2 });
   } catch (e) {
     console.log(e);
     응답.status(404).send("잘못된 url, 비정상적인 접근입니다. ");
@@ -190,12 +197,10 @@ app.put("/edit", async (요청, 응답) => {
 });
 
 app.delete("/delete", async (요청, 응답) => {
-  await db
-    .collection("post")
-    .deleteOne({
-      _id: new ObjectId(요청.query.docid),
-      user: new ObjectId(요청.query._id),
-    });
+  await db.collection("post").deleteOne({
+    _id: new ObjectId(요청.query.docid),
+    user: new ObjectId(요청.query._id),
+  });
   응답.send("삭제완료");
 });
 
@@ -305,4 +310,15 @@ app.get("/search", async (요청, 응답) => {
   ];
   let result = await db.collection("post").aggregate(검색조건).toArray();
   응답.render("search.ejs", { 글목록: result });
+});
+
+//댓글 기능 추가
+app.post("/comment", async (요청, 응답) => {
+  await db.collection("comment").insertOne({
+    content: 요청.body.content,
+    writerId: new ObjectId(요청.user._id),
+    writer: 요청.user.username,
+    parentId: new ObjectId(요청.body.parentId),
+  });
+  응답.redirect("back");
 });
