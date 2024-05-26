@@ -322,3 +322,12 @@ app.post("/comment", async (요청, 응답) => {
   });
   응답.redirect("back");
 });
+
+//채팅방 발행 기능 추가
+app.get("/chat/request", async (요청, 응답) => {
+  await db.collection("chatroom").insertOne({
+    member: [요청.user._id, new ObjectId(요청.query.writerId)],
+    date: new Date(),
+  });
+  응답.redirect("채팅방목록페이지");
+});
