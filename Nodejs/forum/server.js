@@ -329,5 +329,22 @@ app.get("/chat/request", async (요청, 응답) => {
     member: [요청.user._id, new ObjectId(요청.query.writerId)],
     date: new Date(),
   });
-  응답.redirect("채팅방목록페이지");
+  응답.redirect("/chat/list");
+});
+
+//채팅방 목록 보여주기
+app.get("/chat/list", async (요청, 응답) => {
+  let result = await db
+    .collection("chatroom")
+    .find({ member: 요청.user._id })
+    .toArray();
+  응답.render("chatList.ejs", { result: result });
+});
+
+//채팅방 상세페이지 보여주기
+app.get("/chat/detail/:id", async (요청, 응답) => {
+  let result = await db.collection("chatroom").findOne({
+    _id: new ObjectId(요청.params.id),
+  });
+  응답.render("chatDetail.ejs", { result: result });
 });
