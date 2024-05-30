@@ -19,6 +19,12 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+//====websoket 셋팅 ====
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const server = createServer(app);
+const io = new Server(server);
+
 app.use(passport.initialize());
 app.use(
   session({
@@ -71,7 +77,7 @@ connectDB
     console.log(err);
   });
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log("http://localhost:8080 에서 서버 실행중");
 });
 
@@ -347,4 +353,9 @@ app.get("/chat/detail/:id", async (요청, 응답) => {
     _id: new ObjectId(요청.params.id),
   });
   응답.render("chatDetail.ejs", { result: result });
+});
+
+//웹소켓 연결확인 코드
+io.on("connection", (socket) => {
+  console.log("websocket 연결됨");
 });
