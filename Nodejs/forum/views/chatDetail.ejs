@@ -25,6 +25,9 @@
     <script>
       const socket = io();
       socket.emit("age", "26");
+      socket.on("name", (data) => {
+        console.log(data);
+      });
     </script>
   </body>
 </html>
