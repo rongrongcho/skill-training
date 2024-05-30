@@ -355,7 +355,10 @@ app.get("/chat/detail/:id", async (요청, 응답) => {
   응답.render("chatDetail.ejs", { result: result });
 });
 
-//웹소켓 연결확인 코드
+//웹소켓 연결확인 및, 서버 수신 코드
 io.on("connection", (socket) => {
   console.log("websocket 연결됨");
+  socket.on("age", (data) => {
+    console.log("유저가보낸거", data);
+  });
 });
