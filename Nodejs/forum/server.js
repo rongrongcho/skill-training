@@ -361,6 +361,10 @@ io.on("connection", (socket) => {
     console.log("유저가보낸거", data);
     io.emit("name", "lee");
   });
-
-  socket.join("1");
+  socket.on("ask-join", (data) => {
+    socket.join(data);
+  });
+  socket.on("message", (data) => {
+    io.to(data.room).emit("broadcast", data.msg);
+  });
 });
