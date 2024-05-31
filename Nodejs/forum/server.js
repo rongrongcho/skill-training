@@ -364,7 +364,8 @@ io.on("connection", (socket) => {
   socket.on("ask-join", (data) => {
     socket.join(data);
   });
-  socket.on("message", (data) => {
-    io.to(data.room).emit("broadcast", data.msg);
+  socket.on("message-send", (data) => {
+    console.log(data); // test
+    io.to(data.room).emit("message-broadcast", data.msg);
   });
 });
