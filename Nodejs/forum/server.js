@@ -67,6 +67,7 @@ const upload = multer({
 //==========================
 
 let connectDB = require("./database.js");
+const { Stream } = require("stream");
 let db;
 connectDB
   .then((client) => {
@@ -368,4 +369,17 @@ io.on("connection", (socket) => {
     console.log(data); // test
     io.to(data.room).emit("message-broadcast", data.msg);
   });
+});
+
+//SSE
+
+app.get("/stream/list", (요청, 응답) => {
+  응답.writeHead(200, {
+    Connection: "keep-alive",
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+  });
+
+  응답.write("event: msg\n");
+  응답.write("data: 바보\n\n");
 });
