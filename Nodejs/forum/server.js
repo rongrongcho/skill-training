@@ -379,7 +379,6 @@ app.get("/stream/list", (요청, 응답) => {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
   });
-
   응답.write("event: msg\n");
   응답.write("data: 바보\n\n");
 });
