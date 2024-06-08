@@ -375,6 +375,7 @@ io.on("connection", (socket) => {
 
 app.get("/stream/list", (요청, 응답) => {
   응답.writeHead(200, {
+    //http 요청을 끊지 않고 계속 연결
     Connection: "keep-alive",
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
