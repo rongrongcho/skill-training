@@ -385,4 +385,7 @@ app.get("/stream/list", (요청, 응답) => {
     응답.write("event: msg\n");
     응답.write("data: 바보\n\n");
   }, 1000);
+
+  //change stream 사용
+  db.collection("post").watch();
 });
