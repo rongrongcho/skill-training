@@ -69,10 +69,14 @@ const upload = multer({
 let connectDB = require("./database.js");
 const { Stream } = require("stream");
 let db;
+let changeStream;
 connectDB
   .then((client) => {
     console.log("DB연결성공");
     db = client.db("forum");
+    changeStream = db
+      .collection("post")
+      .watch([{ $match: { operationType: "insert" } }]);
   })
   .catch((err) => {
     console.log(err);
@@ -380,12 +384,14 @@ app.get("/stream/list", (요청, 응답) => {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
   });
-  //user가 요청하지 않아도 1초마다 데이터 전송 가능
-  setInterval(() => {
-    응답.write("event: msg\n");
-    응답.write("data: 바보\n\n");
-  }, 1000);
 
-  //change stream 사용
-  db.collection("post").watch();
+  //change stream
+  changeStream.on("change", (result) => {
+    console.log(result);
+    //유저에게 보내주기
+    setInterval(() => {
+      응답.write("event: msg\n");
+      응답.write(`data: ${JSON.stringify(result.fullDocument)}\n\n`);
+    }, 1000);
+  });
 });

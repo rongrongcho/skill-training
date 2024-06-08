@@ -32,7 +32,6 @@
       <% } %>
     </div>
 
-    <a href="/list/next/<%= 글목록[글목록.length-1]._id%>">next</a>
     <script>
       const deleteButtons = document.querySelectorAll(".delete");
       deleteButtons.forEach(function (button) {
@@ -55,9 +54,17 @@
       });
     </script>
     <script>
-      let eventSource = new EventSource("/stream/list");
+      let eventSource;
+      eventSource = new EventSource("/stream/post");
       eventSource.addEventListener("msg", function (e) {
         console.log(e.data);
+        let 가져온거 = JSON.parse(e.data);
+        document
+          .querySelector(".white-bg")
+          .insertAdjacentHTML(
+            "afterbegin",
+            `<div class="list-box"><h4>${가져온거.title}</h4></div>`
+          );
       });
     </script>
   </body>
