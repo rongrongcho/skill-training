@@ -380,6 +380,9 @@ app.get("/stream/list", (요청, 응답) => {
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
   });
-  응답.write("event: msg\n");
-  응답.write("data: 바보\n\n");
+  //user가 요청하지 않아도 1초마다 데이터 전송 가능
+  setInterval(() => {
+    응답.write("event: msg\n");
+    응답.write("data: 바보\n\n");
+  }, 1000);
 });
