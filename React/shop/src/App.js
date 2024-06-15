@@ -4,22 +4,35 @@ import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import bg from "./img/main-bg.jpg";
 import { useState } from "react";
 import data from "./data";
-import { Routes, Route, Link } from "react-router-dom";
-import Detail from "./Detail.js";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import Detail from "./routes/Detail.js";
 function App() {
   let [shoes] = useState(data);
+  let navigate = useNavigate();
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">ShoppingMallPJ</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/detail");
+              }}
+            >
+              Detail
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+
       <Link to="/">홈</Link>
       <Link to="/detail">상세페이지</Link>
 
@@ -40,10 +53,27 @@ function App() {
           }
         ></Route>
         <Route path="/detail" element={<Detail></Detail>}></Route>
+        <Route path="/about" element={<About />}>
+          <Route path="member" element={<div>멤버들</div>} />
+          <Route path="location" element={<div>회사위치</div>} />
+        </Route>
+        <Route
+          path="*"
+          element={<div>404 ! 존재하지 않는 페이지 입니다.</div>}
+        ></Route>
       </Routes>
     </div>
   );
 }
+
+function About() {
+  return (
+    <div>
+      <h4>회사 정보 </h4>
+    </div>
+  );
+}
+
 function Card(props) {
   return (
     <div className="col-md-4">
@@ -53,27 +83,6 @@ function Card(props) {
       />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
-    </div>
-  );
-}
-
-function Detail() {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <img
-            src="https://codingapple1.github.io/shop/shoes1.jpg"
-            width="100%"
-          />
-        </div>
-        <div className="col-md-6">
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
-          <button className="btn btn-danger">주문하기</button>
-        </div>
-      </div>
     </div>
   );
 }
