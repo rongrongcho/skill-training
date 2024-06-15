@@ -1,5 +1,17 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
+let YellowBtn = styled.button`
+  background: yellow;
+  color: black;
+  padding: 10px;
+`;
+
+let Box = styled.div`
+  padding: 20px;
+  color: grey;
+`;
 
 function Detail(props) {
   //user가 :id 자리에 적은 파라미터를 가져와준다
@@ -9,6 +21,9 @@ function Detail(props) {
   });
   return (
     <div className="container">
+      <Box>
+        <YellowBtn>버튼</YellowBtn>
+      </Box>
       <div className="row">
         <div className="col-md-6">
           <img
