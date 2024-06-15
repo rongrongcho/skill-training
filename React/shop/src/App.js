@@ -5,6 +5,7 @@ import bg from "./img/main-bg.jpg";
 import { useState } from "react";
 import data from "./data";
 import { Routes, Route, Link } from "react-router-dom";
+import Detail from "./Detail.js";
 function App() {
   let [shoes] = useState(data);
   return (
