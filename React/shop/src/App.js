@@ -52,11 +52,7 @@ function App() {
             </>
           }
         ></Route>
-        <Route path="/detail" element={<Detail></Detail>}></Route>
-        <Route path="/about" element={<About />}>
-          <Route path="member" element={<div>멤버들</div>} />
-          <Route path="location" element={<div>회사위치</div>} />
-        </Route>
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>
         <Route
           path="*"
           element={<div>404 ! 존재하지 않는 페이지 입니다.</div>}
