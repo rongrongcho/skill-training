@@ -20,8 +20,20 @@ function Detail(props) {
   let 찾은상품 = props.shoes.find(function (x) {
     return x.id == id;
   });
+
+  let [alert, setAlert] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  });
+
   return (
     <div className="container">
+      {alert == true ? (
+        <div className="alert alert-warning">2초이내 구매시 할인</div>
+      ) : null}
       <button
         onClick={() => {
           setCount(count + 1);
@@ -29,7 +41,6 @@ function Detail(props) {
       >
         재랜더링 테스트
       </button>
-
       <YellowBtn bg="blue">버튼</YellowBtn>
       <div className="row">
         <div className="col-md-6">
