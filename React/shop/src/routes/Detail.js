@@ -13,8 +13,6 @@ function Detail(props) {
     console.log("안녕");
   });
 
-  let [count, setCount] = useState(0);
-
   //user가 :id 자리에 적은 파라미터를 가져와준다
   let { id } = useParams();
   let 찾은상품 = props.shoes.find(function (x) {
@@ -22,12 +20,13 @@ function Detail(props) {
   });
 
   let [alert, setAlert] = useState(true);
+  let [count, setCount] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
       setAlert(false);
     }, 2000);
-  });
+  }, [count]);
 
   return (
     <div className="container">
