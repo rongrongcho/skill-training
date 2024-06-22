@@ -8,7 +8,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from "axios";
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   return (
     <div className="App">
@@ -56,12 +56,16 @@ function App() {
                     .get("https://codingapple1.github.io/shop/data2.json")
                     .then((결과) => {
                       console.log(결과.data);
-                    })
-                    .catch();
+                      let copy = [...shoes, ...결과.data];
+                      setShoes(copy);
+                    });
+
+                  Promise.all([axios.get("/url1", axios.get("/url2"))]).then(
+                    () => {}
+                  );
                 }}
               >
-                {" "}
-                ajax 버튼
+                더보기
               </button>
             </>
           }
