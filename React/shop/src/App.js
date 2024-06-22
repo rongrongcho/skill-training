@@ -6,6 +6,7 @@ import { useState } from "react";
 import data from "./data";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
+import axios from "axios";
 function App() {
   let [shoes] = useState(data);
   let navigate = useNavigate();
@@ -49,6 +50,19 @@ function App() {
                   <Card shoes={shoes[2]} i={3} />
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get("https://codingapple1.github.io/shop/data2.json")
+                    .then((결과) => {
+                      console.log(결과.data);
+                    })
+                    .catch();
+                }}
+              >
+                {" "}
+                ajax 버튼
+              </button>
             </>
           }
         ></Route>
