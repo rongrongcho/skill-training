@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Nav } from "react-bootstrap";
 
 let YellowBtn = styled.button`
   background: ${(props) => props.bg};
@@ -21,6 +22,8 @@ function Detail(props) {
 
   let [alert, setAlert] = useState(true);
   let [count, setCount] = useState(0);
+  // UI의 현재 상태를 저장할 state
+  let [탭,탭변경]=useState(???)
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,6 +44,7 @@ function Detail(props) {
         재랜더링 테스트
       </button>
       <YellowBtn bg="blue">버튼</YellowBtn>
+
       <div className="row">
         <div className="col-md-6">
           <img
@@ -55,6 +59,21 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
+
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link eventKey="link0">버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link1">버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link2">버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <div>내용0</div>
+      <div>내용1</div>
+      <div>내용2</div>
     </div>
   );
 }
