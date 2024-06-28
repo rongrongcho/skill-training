@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
-
+import { Context1 } from "./../App.js";
 let YellowBtn = styled.button`
   background: ${(props) => props.bg};
   color: ${(props) => (props.bg == "blue" ? "white" : "black")};
@@ -10,6 +10,8 @@ let YellowBtn = styled.button`
 `;
 
 function Detail(props) {
+  //보관함 해체 -> 변수에 저장해 사용
+  let { 재고, shoes } = useContext(Context1);
   useEffect(() => {
     console.log("안녕");
   });

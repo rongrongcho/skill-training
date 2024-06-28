@@ -7,8 +7,9 @@ import data from "./data";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from "axios";
+import Cart from "./routes/Cart.js";
 
-let Context1 = createContext();
+export let Context1 = createContext();
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -86,6 +87,9 @@ function App() {
           path="*"
           element={<div>404 ! 존재하지 않는 페이지 입니다.</div>}
         ></Route>
+
+        {/* 장바구니 페이지 추가  */}
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </div>
   );
