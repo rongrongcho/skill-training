@@ -2,14 +2,18 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import bg from "./img/main-bg.jpg";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import data from "./data";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from "axios";
+
+let Context1 = createContext();
+
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+  let [재고] = useState(10, 11, 12);
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -70,7 +74,14 @@ function App() {
             </>
           }
         ></Route>
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>
+        <Route
+          path="/detail/:id"
+          element={
+            <Context1.Provider value={{ 재고, shoes }}>
+              <Detail shoes={shoes} />
+            </Context1.Provider>
+          }
+        ></Route>
         <Route
           path="*"
           element={<div>404 ! 존재하지 않는 페이지 입니다.</div>}

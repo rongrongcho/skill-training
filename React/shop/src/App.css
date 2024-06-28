@@ -44,3 +44,12 @@
     transform: rotate(360deg);
   }
 }
+
+/* 투명도가 0에서 1로 증가하는 애니메이션 */
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
