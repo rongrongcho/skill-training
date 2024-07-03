@@ -16,6 +16,7 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
+          {state.cart.map()}
           <tr>
             <th>1</th>
             <th>{state.cart[0].name}</th>
