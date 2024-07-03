@@ -4,7 +4,7 @@ let user = createSlice({
   name: "user",
   initialState: { name: "kim", age: 20 },
   reducers: {
-    changeName(state) {
+    changeCount(state) {
       state.name = "park";
     },
     increase(state, action) {
@@ -12,5 +12,5 @@ let user = createSlice({
     },
   },
 });
-
+export let { changeName, increase } = user.actions;
 export default user;
