@@ -2,15 +2,18 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 let user = createSlice({
   name: "user",
-  initialState: "kim",
+  initialState: { name: "kim", age: 20 },
   reducers: {
-    changeName() {
-      return "john kim";
+    changeName(state) {
+      state.name = "park";
+    },
+    increase(state) {
+      state.age += 1;
     },
   },
 });
 
-export let { changeName } = user.actions;
+export let { changeName, increase } = user.actions;
 
 let stock = createSlice({
   name: "stock",
