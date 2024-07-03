@@ -16,19 +16,14 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          {state.cart.map()}
-          <tr>
-            <th>1</th>
-            <th>{state.cart[0].name}</th>
-            <th>{state.cart[0].count}</th>
-            <th>안녕</th>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>{state.cart[1].name}</td>
-            <td>{state.cart[1].count}</td>
-            <td>안녕</td>
-          </tr>
+          {state.cart.map((a, i) => {
+            <tr key={i}>
+              <th>{i}</th>
+              <th>{state.cart[i].name}</th>
+              <th>안녕</th>
+              <th>안녕</th>
+            </tr>;
+          })}
         </tbody>
       </Table>
     </div>
