@@ -3,6 +3,11 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 let user = createSlice({
   name: "user",
   initialState: "kim",
+  reducers: {
+    changeName() {
+      return "john kim";
+    },
+  },
 });
 
 let stock = createSlice({
