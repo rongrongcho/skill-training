@@ -8,6 +8,7 @@ function Cart() {
 
   return (
     <div>
+      {state.user}의 장바구니
       <Table>
         <thead>
           <tr>
@@ -18,7 +19,7 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          {state.cart.map((a, i) => {
+          {state.cart.map((a, i) => (
             <tr key={i}>
               <td>{i}</td>
               <td>{state.cart[i].name}</td>
@@ -32,8 +33,8 @@ function Cart() {
                   +
                 </button>
               </td>
-            </tr>;
-          })}
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
