@@ -11,7 +11,7 @@ function Cart() {
       {state.user.name}의 장바구니
       <button
         onClick={() => {
-          dispatch(increase());
+          dispatch(increase(100));
         }}
       >
         {state.user.age}
