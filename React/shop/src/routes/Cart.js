@@ -2,12 +2,28 @@ import { Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { changeName, increase } from "./../store/userSlice.js";
 import { addCount } from "../store.js";
+import { memo, useState } from "react";
+
+let Child = memo(function () {
+  console.log("재렌더링됨");
+  return <div>자식임</div>;
+});
+
 function Cart() {
   let state = useSelector((state) => state);
   let dispatch = useDispatch();
+  let [count, setCount] = useState(0);
 
   return (
     <div>
+      <Child></Child>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        랜더링테스트
+      </button>
       {state.user.name}의 장바구니
       <button
         onClick={() => {
