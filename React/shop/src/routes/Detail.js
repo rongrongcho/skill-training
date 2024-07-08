@@ -30,6 +30,16 @@ function Detail(props) {
   let [탭, 탭변경] = useState(0);
   let dispatch = useDispatch();
 
+  //최근 본 상품
+  useEffect(() => {
+    let 꺼낸거 = localStorage.getItem("watched", [찾은상품.id]);
+    꺼낸거 = JSON.parse(꺼낸거);
+    꺼낸거.push(찾은상품.id);
+    꺼낸거 = new Set(꺼낸거);
+    꺼낸거 = Array.from(꺼낸거);
+    localStorage.setItem("watched", JSON.stringify(꺼낸거));
+  }, []);
+
   useEffect(() => {
     setTimeout(() => {
       setAlert(false);
