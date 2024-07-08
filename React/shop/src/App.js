@@ -16,7 +16,13 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [재고] = useState(10, 11, 12);
-  useQuery();
+  let result = useQuery(["작명"], () => {
+    return axios
+      .get("https://codingapple1.github.io/userdata.json")
+      .then((a) => {
+        return a.data;
+      });
+  });
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -38,7 +44,9 @@ function App() {
               Detail
             </Nav.Link>
           </Nav>
-          <Nav className="ms-auto">반가워요 kim</Nav>
+          <Nav className="ms-auto">
+            {result.isLoading ? "로딩중" : result.data.name}
+          </Nav>
         </Container>
       </Navbar>
 
