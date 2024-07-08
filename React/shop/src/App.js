@@ -8,6 +8,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from "axios";
 import Cart from "./routes/Cart.js";
+import { useQuery } from "react-query";
 
 export let Context1 = createContext();
 
@@ -15,6 +16,7 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [재고] = useState(10, 11, 12);
+  useQuery();
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -36,6 +38,7 @@ function App() {
               Detail
             </Nav.Link>
           </Nav>
+          <Nav className="ms-auto">반가워요 kim</Nav>
         </Container>
       </Navbar>
 
